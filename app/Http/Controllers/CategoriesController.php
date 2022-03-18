@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
 
-        return view('categories.index', ['categoreies' => $categories]);
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -58,7 +58,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        return view('categories.show',['category'=>$category]);
     }
 
     /**
@@ -81,7 +82,12 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->color = $request->color;
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'Categorias actualizada!');
     }
 
     /**
@@ -92,6 +98,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Categorias eliminada!');
     }
 }
