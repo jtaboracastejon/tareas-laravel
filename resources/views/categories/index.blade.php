@@ -33,12 +33,12 @@
             </a>
         </div>
         <div class="col-md-3 d-flex justify-content-end">                    
-            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#{{$category->id}}">Eliminar</button>                    
+            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-{{$category->id}}">Eliminar</button>                    
         </div>
     </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="{{$category->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="modal-{{$category->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -46,14 +46,14 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              Al eliminar la categoría <strong>{{ $category->name }}</strong> se eliminan todas las tareas asignadas a la misma.¿Está seguro que desea eliminar la categoría <strong>{{ $category->name }}</strong>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <form action="{{route('categories.destroy', ['category' => $category->id])}}">
+              <form method="POST" action="{{route('categories.destroy', ['category' => $category->id])}}">
                 @method('DELETE')
                 @csrf
-                <button type="button" class="btn btn-primary">Eliminar</button>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
             </div>
           </div>
